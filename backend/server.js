@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 const teamRoutes = require("./routes/teamRoutes");
+const gameRoutes = require("./routes/gameRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -23,7 +24,7 @@ mongoose
 
 // --- API Routes ---
 app.use("/api/teams", teamRoutes);
-
+app.use("/api/game", gameRoutes); // 2. Add the game routes
 // Define the port
 const PORT = process.env.PORT || 3001;
 

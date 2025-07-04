@@ -1,12 +1,32 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { riddleData } from "../data/riddleData";
 
 export const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
-  const [riddles, setRiddles] = useState(riddleData);
+  // --- THIS IS THE FIX ---
+  // Same localStorage pattern for the game progress.
+  const [riddles, setRiddles] = useState(() => {
+    try {
+      const savedRiddles = window.localStorage.getItem(
+        "treasureHuntGameProgress"
+      );
+      return savedRiddles ? JSON.parse(savedRiddles) : riddleData;
+    } catch (error) {
+      console.error("Error parsing game progress from localStorage", error);
+      return riddleData;
+    }
+  });
 
-  // Mark a riddle as solved (passcode entered correctly)
+  // --- THIS IS THE OTHER PART OF THE FIX ---
+  // Save progress whenever the riddles state changes.
+  useEffect(() => {
+    window.localStorage.setItem(
+      "treasureHuntGameProgress",
+      JSON.stringify(riddles)
+    );
+  }, [riddles]);
+
   const solveRiddle = (riddleId) => {
     setRiddles((prevRiddles) =>
       prevRiddles.map((riddle) =>
@@ -15,7 +35,6 @@ export const GameProvider = ({ children }) => {
     );
   };
 
-  // Mark a puzzle as completed (the final step)
   const solvePuzzle = (riddleId) => {
     setRiddles((prevRiddles) =>
       prevRiddles.map((riddle) =>
@@ -24,7 +43,6 @@ export const GameProvider = ({ children }) => {
     );
   };
 
-  // Renamed old function and added a new one
   return (
     <GameContext.Provider value={{ riddles, solveRiddle, solvePuzzle }}>
       {children}

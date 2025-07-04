@@ -1,31 +1,35 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { GameContext } from "../context/GameContext";
-import { TeamContext } from "../context/TeamContent";
-import api from "../api/axiosConfig";
 
-function RiddleScreen() {
-  const { id } = useParams(); // Gets the 'id' from the URL (e.g., '/riddle/1')
+export default function RiddleScreen() {
+  const { id } = useParams();
   const navigate = useNavigate();
-
   const { riddles, solveRiddle } = useContext(GameContext);
-  const { teamInfo, updateTeamInfo } = useContext(TeamContext);
 
   const [passcode, setPasscode] = useState("");
   const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Find the specific riddle data based on the URL id
+  // Find the data for the current riddle from the URL id
   const currentRiddle = riddles.find((r) => r.id === parseInt(id));
 
-  // If the riddle is already unlocked, redirect back to the hub
-  useEffect(() => {
-    if (currentRiddle && currentRiddle.isUnlocked) {
-      navigate(`/puzzle/${currentRiddle.id}`);
-    }
-  }, [currentRiddle, navigate]);
+  // If the riddle data can't be found, show an error.
+  if (!currentRiddle) {
+    return (
+      <div className="text-center p-8 bg-white rounded-lg shadow-xl">
+        <h1 className="text-3xl font-bold text-red-600">Error</h1>
+        <p className="text-gray-700 mt-2">Riddle with ID "{id}" not found.</p>
+        <Link
+          to="/hub"
+          className="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded"
+        >
+          Return to Hub
+        </Link>
+      </div>
+    );
+  }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (passcode.trim() !== currentRiddle.passcode) {
       setError("The code is incorrect. The seal remains locked.");
@@ -33,76 +37,93 @@ function RiddleScreen() {
       return;
     }
 
-    setIsSubmitting(true);
-    setError("");
+    // Mark the riddle as solved in our game state
+    solveRiddle(currentRiddle.id);
 
-    try {
-      // 1. Award points by calling the backend
-      const response = await api.post("/teams/score", {
-        teamId: teamInfo.id,
-        pointsToAdd: 25,
-      });
-
-      // 2. Update frontend state
-      updateTeamInfo({ score: response.data.team.score }); // Update score in TeamContext
-      solveRiddle(currentRiddle.id); // Mark riddle as solved in GameContext
-
-      // 3. Navigate to the puzzle
-      navigate(`/puzzle/${currentRiddle.id}`);
-    } catch (apiError) {
-      console.error("Failed to update score", apiError);
-      setError("Could not connect to server to save score. Please try again.");
-      setIsSubmitting(false);
-    }
+    // Navigate to the puzzle, adding it to the browser history.
+    navigate(`/puzzle/${currentRiddle.id}`);
   };
 
-  if (!currentRiddle) return <div>Riddle not found!</div>;
+  // --- This section handles what to show based on the riddle's state ---
 
+  // A) If the entire puzzle path is complete (riddle & puzzle solved)
+  if (currentRiddle.isPuzzleSolved) {
+    return (
+      <div className="w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl text-center bg-green-200">
+        <h2 className="text-2xl font-bold mb-6">
+          Seal #{currentRiddle.id} is Unlocked!
+        </h2>
+        <p className="text-xl">You have already solved this puzzle.</p>
+        <Link
+          to="/hub"
+          className="inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-xl"
+        >
+          Return to Hub
+        </Link>
+      </div>
+    );
+  }
+
+  // B) If the riddle is solved but the puzzle isn't, give a direct link to the puzzle.
+  if (currentRiddle.isRiddleSolved) {
+    return (
+      <div className="w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl text-center bg-yellow-200">
+        <h2 className="text-2xl font-bold mb-6">
+          Riddle for Seal #{currentRiddle.id} is Solved!
+        </h2>
+        <p className="text-xl">The path to the puzzle is open.</p>
+        <Link
+          to={`/puzzle/${currentRiddle.id}`}
+          className="inline-block mt-6 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg text-xl"
+        >
+          Go to Puzzle #{currentRiddle.id}
+        </Link>
+      </div>
+    );
+  }
+
+  // C) Default view: The riddle is unsolved. Show the riddle and input form.
   return (
-    // The background color is set dynamically!
     <div
-      className={`w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl text-center text-gray-800 ${currentRiddle.color}`}
+      className={`w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl text-gray-800 ${currentRiddle.color}`}
     >
-      <h2 className="text-2xl font-bold mb-6">
+      <div className="text-left mb-4">
+        <Link to="/hub" className="text-sm text-blue-700 hover:underline">
+          ← Back to Hub
+        </Link>
+      </div>
+      <h2 className="text-2xl font-bold mb-6 text-center">
         The Riddle of Seal #{currentRiddle.id}
       </h2>
-
-      <p className="text-xl sm:text-2xl italic leading-relaxed mb-8">
+      <p className="text-xl sm:text-2xl italic leading-relaxed mb-8 text-center">
         "{currentRiddle.riddle}"
       </p>
-
       <form onSubmit={handleSubmit} className="w-full max-w-sm mx-auto">
-        <label htmlFor="passcode" className="block font-bold mb-2">
+        <label htmlFor="passcode" className="block font-bold mb-2 text-center">
           Enter the 4-Digit Passcode
         </label>
         <input
-          type="number" // Using type="number" can bring up numeric keyboard on mobile
+          type="number"
           id="passcode"
           value={passcode}
           onChange={(e) => {
-            // Only allow 4 digits
-            if (e.target.value.length <= 4) {
-              setPasscode(e.target.value);
-            }
-            setError(""); // Clear error on new input
+            if (e.target.value.length <= 4) setPasscode(e.target.value);
+            setError("");
           }}
           className="w-full p-3 text-center text-2xl tracking-[.5em] font-mono border-2 border-gray-500 rounded-lg focus:ring-2 focus:ring-gray-800 focus:outline-none"
           placeholder="----"
           required
         />
-
-        {error && <p className="text-red-700 font-bold mt-4">{error}</p>}
-
+        {error && (
+          <p className="text-red-700 font-bold mt-4 text-center">{error}</p>
+        )}
         <button
           type="submit"
-          disabled={isSubmitting}
           className="w-full mt-6 bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg text-xl shadow-lg transform hover:scale-105 transition-transform"
         >
-          {isSubmitting ? "Verifying..." : "Attempt to Unlock"}
+          Unlock Puzzle
         </button>
       </form>
     </div>
   );
 }
-
-export default RiddleScreen;

@@ -1,20 +1,21 @@
 const Team = require("../models/teamModel");
+const Game = require("../models/gameModel"); // Import the Game model to check status
 
-// @desc    Create a new team
-// @route   POST /api/teams/create
-// @access  Public
+/**
+ * @desc    Create a new team
+ * @route   POST /api/teams/create
+ * @access  Public
+ */
 const createTeam = async (req, res) => {
   try {
     const { teamName, numPlayers, members } = req.body;
 
-    // Basic validation
     if (!teamName || !numPlayers || !members) {
       return res
         .status(400)
         .json({ message: "Please provide all required fields" });
     }
 
-    // Check if team name already exists
     const teamExists = await Team.findOne({ teamName });
     if (teamExists) {
       return res
@@ -29,26 +30,41 @@ const createTeam = async (req, res) => {
     });
 
     const createdTeam = await team.save();
-    res.status(201).json(createdTeam); // 201 = Created
+    res.status(201).json(createdTeam);
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
 
+/**
+ * @desc    Add points to a team's score, but only if the game is active.
+ * @route   POST /api/teams/score
+ * @access  Public
+ */
 const addScore = async (req, res) => {
   try {
-    const { teamId, pointsToAdd } = req.body;
+    // --- CRITICAL CHECK ---
+    // First, get the current game status from the database.
+    const game = await Game.getSingleton();
 
+    // If the game is not currently 'active', block the request.
+    if (game.status !== "active") {
+      return res.status(403).json({
+        message: `Score cannot be added because the game is not active. Current status: ${game.status}.`,
+      });
+    }
+
+    // If the game IS active, proceed with adding the score.
+    const { teamId, pointsToAdd } = req.body;
     if (!teamId || !pointsToAdd) {
       return res
         .status(400)
         .json({ message: "Team ID and points are required." });
     }
 
-    // Find the team and add the points atomically
     const updatedTeam = await Team.findByIdAndUpdate(
       teamId,
-      { $inc: { score: pointsToAdd } }, // $inc is a MongoDB operator to increment a field
+      { $inc: { score: pointsToAdd } },
       { new: true } // This option returns the updated document
     );
 
@@ -64,8 +80,23 @@ const addScore = async (req, res) => {
   }
 };
 
-// --- UPDATE THE EXPORTS ---
+/**
+ * @desc    Get all teams for the leaderboard, sorted by score and then time.
+ * @route   GET /api/teams/leaderboard
+ * @access  Public
+ */
+const getLeaderboard = async (req, res) => {
+  try {
+    const teams = await Team.find({}).sort({ score: -1, updatedAt: 1 });
+    res.status(200).json(teams);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
+// Export all controller functions
 module.exports = {
   createTeam,
-  addScore, // Add the new function here
+  addScore,
+  getLeaderboard,
 };
