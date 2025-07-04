@@ -11,7 +11,7 @@ dotenv.config();
 
 const allowedOrigins = [
   "http://localhost:5173", // Your local frontend
-  "https://your-frontend-url.vercel.app", // YOUR VERCEL URL WILL GO HERE
+  "https://treasurehuntm85vik.netlify.app", // YOUR VERCEL URL WILL GO HERE
 ];
 
 const corsOptions = {
