@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
 
 export default function WelcomeScreen() {
+  console.log(import.meta.env.VITE_API_URL);
+
   const navigate = useNavigate();
   // State to hold the game status from the backend
   const [gameStatus, setGameStatus] = useState("loading"); // 'loading', 'inactive', 'active', 'stopped'

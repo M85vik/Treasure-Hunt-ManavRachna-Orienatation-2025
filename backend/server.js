@@ -9,11 +9,27 @@ const gameRoutes = require("./routes/gameRoutes");
 // Load environment variables
 dotenv.config();
 
+const allowedOrigins = [
+  "http://localhost:5173", // Your local frontend
+  "https://your-frontend-url.vercel.app", // YOUR VERCEL URL WILL GO HERE
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
 // Initialize Express App
 const app = express();
 
 // Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+
+app.use(cors(corsOptions));
 app.use(express.json()); // Allow the server to accept JSON in the request body
 
 // Connect to MongoDB

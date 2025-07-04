@@ -184,33 +184,102 @@ const Manual = () => (
       <h2 className="text-gray-900">DEFUSAL MANUAL - TOP SECRET</h2>
       <section>
         <h3>On the Subject of Wires</h3>
-        <p>
-          A simple configuration. If the last digit of the serial number (1) is
-          odd, cut the fourth wire.
-        </p>
-        <p className="font-bold text-sm">
-          Solution: Cut the 4th wire from the top.
-        </p>
+        <ul>
+          <li>
+            If the last wire is black and the last digit of the serial number is
+            odd, cut the fourth wire.
+          </li>
+          <li>
+            Otherwise, if there is exactly one red wire and more than one yellow
+            wire, cut the first wire.
+          </li>
+          <li>Otherwise, if there are no black wires, cut the second wire.</li>
+          <li>Otherwise, cut the first wire.</li>
+        </ul>
       </section>
       <section>
         <h3>On the Subject of Keypads</h3>
         <p>
-          The symbols are familiar. They must be pressed in the order they
-          appeared in the ancient prophecy: first the Circle with a line, then
-          the Pitchfork, followed by the Horseshoe, and finally the C in a
-          circle.
+          Find the column containing all four symbols. Press them in the order
+          shown for that column.
         </p>
-        <p className="font-bold text-sm">
-          Solution: Press Φ, then Ψ, then Ω, then ©.
+        <table className="w-full text-left">
+          <thead>
+            <tr>
+              <th>Col 1</th>
+              <th>Col 2</th>
+              <th>Col 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>☺</td>
+              <td>©</td>
+              <td>★</td>
+            </tr>
+            <tr>
+              <td>Ψ</td>
+              <td>Ω</td>
+              <td>λ</td>
+            </tr>
+            <tr>
+              <td>¿</td>
+              <td>Φ</td>
+              <td>©</td>
+            </tr>
+            <tr>
+              <td>Ω</td>
+              <td>Ψ</td>
+              <td>Φ</td>
+            </tr>
+            <tr className="font-bold border-t-2 border-gray-400">
+              <td colSpan="3">Press Order:</td>
+            </tr>
+            <tr>
+              <td>1. Ψ</td>
+              <td>1. Φ</td>
+              <td>1. ★</td>
+            </tr>
+            <tr>
+              <td>2. ¿</td>
+              <td>2. Ψ</td>
+              <td>2. λ</td>
+            </tr>
+            <tr>
+              <td>3. ☺</td>
+              <td>3. Ω</td>
+              <td>3. Φ</td>
+            </tr>
+            <tr>
+              <td>4. Ω</td>
+              <td>4. ©</td>
+              <td>4. ©</td>
+            </tr>
+          </tbody>
+        </table>
+        <p className="text-xs mt-2">
+          *Symbols for reference: Ψ (Pitchfork), Φ (Circle w/ line), © (C in
+          circle), Ω (Horseshoe)*
         </p>
       </section>
       <section>
         <h3>On the Subject of The Button</h3>
-        <p>
-          If the button is Red and says "HOLD", and there are 2 batteries, the
-          manual says to press and immediately release the button.
-        </p>
-        <p className="font-bold text-sm">Solution: Click the button once.</p>
+        <ul>
+          <li>
+            If the button is Blue and says "ABORT": Press and hold. Release when
+            timer has a 4.
+          </li>
+          <li>
+            If there is more than 1 battery and the button says "DETONATE":
+            Press and immediately release.
+          </li>
+          <li>
+            If the button is Red and says "HOLD": Press and immediately release.
+          </li>
+          <li>
+            In all other cases: Press and hold. Release when timer has a 1.
+          </li>
+        </ul>
       </section>
     </div>
   </div>
