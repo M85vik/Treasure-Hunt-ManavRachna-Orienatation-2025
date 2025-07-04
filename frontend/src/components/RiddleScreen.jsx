@@ -1,52 +1,24 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { GameContext } from "../context/GameContext";
-
 export default function RiddleScreen() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { riddles, solveRiddle } = useContext(GameContext);
-
   const [passcode, setPasscode] = useState("");
   const [error, setError] = useState("");
-
-  // Find the data for the current riddle from the URL id
   const currentRiddle = riddles.find((r) => r.id === parseInt(id));
-
-  // If the riddle data can't be found, show an error.
-  if (!currentRiddle) {
-    return (
-      <div className="text-center p-8 bg-white rounded-lg shadow-xl">
-        <h1 className="text-3xl font-bold text-red-600">Error</h1>
-        <p className="text-gray-700 mt-2">Riddle with ID "{id}" not found.</p>
-        <Link
-          to="/hub"
-          className="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded"
-        >
-          Return to Hub
-        </Link>
-      </div>
-    );
-  }
-
+  if (!currentRiddle) return <div>Riddle not found!</div>;
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passcode.trim() !== currentRiddle.passcode) {
-      setError("The code is incorrect. The seal remains locked.");
+      setError("The code is incorrect.");
       setPasscode("");
       return;
     }
-
-    // Mark the riddle as solved in our game state
     solveRiddle(currentRiddle.id);
-
-    // Navigate to the puzzle, adding it to the browser history.
     navigate(`/puzzle/${currentRiddle.id}`);
   };
-
-  // --- This section handles what to show based on the riddle's state ---
-
-  // A) If the entire puzzle path is complete (riddle & puzzle solved)
   if (currentRiddle.isPuzzleSolved) {
     return (
       <div className="w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl text-center bg-green-200">
@@ -63,8 +35,6 @@ export default function RiddleScreen() {
       </div>
     );
   }
-
-  // B) If the riddle is solved but the puzzle isn't, give a direct link to the puzzle.
   if (currentRiddle.isRiddleSolved) {
     return (
       <div className="w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl text-center bg-yellow-200">
@@ -81,8 +51,6 @@ export default function RiddleScreen() {
       </div>
     );
   }
-
-  // C) Default view: The riddle is unsolved. Show the riddle and input form.
   return (
     <div
       className={`w-full max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl text-gray-800 ${currentRiddle.color}`}
@@ -110,7 +78,7 @@ export default function RiddleScreen() {
             if (e.target.value.length <= 4) setPasscode(e.target.value);
             setError("");
           }}
-          className="w-full p-3 text-center text-2xl tracking-[.5em] font-mono border-2 border-gray-500 rounded-lg focus:ring-2 focus:ring-gray-800 focus:outline-none"
+          className="w-full p-3 text-center text-2xl tracking-[.5em] font-mono border-2 border-gray-500 rounded-lg"
           placeholder="----"
           required
         />
@@ -119,7 +87,7 @@ export default function RiddleScreen() {
         )}
         <button
           type="submit"
-          className="w-full mt-6 bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg text-xl shadow-lg transform hover:scale-105 transition-transform"
+          className="w-full mt-6 bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg text-xl"
         >
           Unlock Puzzle
         </button>
