@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { TeamContext } from "../context/TeamContent";
-import axios from "axios"; // Import axios
 import api from "../api/axiosConfig";
 
 function TeamMembersScreen() {
@@ -10,15 +9,12 @@ function TeamMembersScreen() {
 
   const [members, setMembers] = useState([]);
   const [error, setError] = useState("");
-
-  // New state to handle the loading status of the API call
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (teamInfo.numPlayers === 0 || !teamInfo.teamName) {
       navigate("/details");
     }
-    // Initialize with existing members if any, otherwise create empty slots
     const initialMembers =
       teamInfo.members.length === teamInfo.numPlayers
         ? teamInfo.members
@@ -40,80 +36,80 @@ function TeamMembersScreen() {
       return;
     }
 
-    setIsSubmitting(true); // Disable button and show loading state
+    setIsSubmitting(true);
     setError("");
 
-    // Prepare the final data payload to send to the backend
     const finalTeamData = {
       ...teamInfo,
       members: members,
     };
 
     try {
-      // --- THIS IS THE API CALL ---
-      // Replace '/api/teams/create' with your actual backend endpoint
       const response = await api.post("/teams/create", finalTeamData);
 
-      // Assuming the backend responds with the created team data
-      console.log("Team created successfully:", response.data);
-
-      // Update the context with the final member list
       updateTeamInfo({
-        id: response.data._id, // The unique ID from MongoDB
+        id: response.data._id,
         teamName: response.data.teamName,
         members: response.data.members,
         score: response.data.score,
       });
 
-      // Navigate to the start of the hunt!
       navigate("/hub");
     } catch (apiError) {
       console.error("Failed to create team:", apiError);
       setError("Could not save the team. Please try again.");
-      setIsSubmitting(false); // Re-enable the button on failure
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-2xl">
-      <h2 className="text-3xl font-bold text-center text-amber-900 mb-6">
-        Who's on the Team?
-      </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* The dynamic inputs remain exactly the same */}
-        {Array.from({ length: teamInfo.numPlayers }).map((_, index) => (
-          <div key={index}>
-            <label
-              htmlFor={`player-${index}`}
-              className="block text-sm font-bold text-gray-700 mb-2"
-            >
-              Player {index + 1}'s Name
-            </label>
-            <input
-              type="text"
-              id={`player-${index}`}
-              value={members[index] || ""}
-              onChange={(e) => handleNameChange(index, e.target.value)}
-              placeholder={`Enter Player ${index + 1}'s name`}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
-              required
-            />
-          </div>
-        ))}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#131826] via-[#1f2937] to-[#111827] relative overflow-hidden px-4">
+      {/* Decorative blurred glowing shapes */}
+      <div className="absolute w-72 h-72 bg-gradient-to-tr from-green-400 to-green-500 rounded-full blur-3xl opacity-30 top-10 left-10 animate-pulse"></div>
+      <div className="absolute w-60 h-60 bg-gradient-to-tr from-purple-600 to-indigo-600 rounded-full blur-3xl opacity-30 bottom-10 right-10 animate-pulse"></div>
 
-        {error && (
-          <p className="text-red-500 text-center text-sm mt-4">{error}</p>
-        )}
-
-        {/* The button is now aware of the submission state */}
-        <button
-          type="submit"
-          disabled={isSubmitting} // Disable button while submitting
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-xl shadow-lg transform hover:scale-105 transition-transform mt-6 disabled:bg-gray-400 disabled:cursor-not-allowed"
+      <div className="relative bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/10 max-w-md w-full z-10">
+        <h2
+          className="text-3xl font-bold text-center bg-gradient-to-r from-green-400 via-lime-400 to-green-500 bg-clip-text text-transparent drop-shadow-lg mb-6"
+          style={{ fontFamily: "'Luckiest Guy', sans" }}
         >
-          {isSubmitting ? "Saving Team..." : "Begin the Hunt!"}
-        </button>
-      </form>
+          Who's on the Team?
+        </h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {Array.from({ length: teamInfo.numPlayers }).map((_, index) => (
+            <div key={index}>
+              <label
+                htmlFor={`player-${index}`}
+                className="block text-sm font-bold text-white mb-2"
+              >
+                Player {index + 1}'s Name
+              </label>
+              <input
+                type="text"
+                id={`player-${index}`}
+                value={members[index] || ""}
+                onChange={(e) => handleNameChange(index, e.target.value)}
+                placeholder={`Enter Player ${index + 1}'s name`}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none shadow-inner  bg-gray-700 transition-all"
+                required
+              />
+            </div>
+          ))}
+
+          {error && (
+            <p className="text-red-500 text-center text-sm mt-4">{error}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-gradient-to-r from-green-500 to-lime-500 hover:from-green-600 hover:to-lime-600 text-white font-bold py-3 px-6 rounded-xl text-xl shadow-xl transform hover:scale-105 transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? "Saving Team..." : "Begin the Hunt!"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

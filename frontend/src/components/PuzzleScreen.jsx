@@ -22,7 +22,7 @@ export default function PuzzleScreen() {
   const renderPuzzle = () => {
     switch (parseInt(id)) {
       case 1:
-        return <Puzzle1_Bomb onComplete={onPuzzleComplete} />;
+        return <Puzzle1_Bomb />;
       case 2:
         return <Puzzle2_Chemistry onComplete={onPuzzleComplete} />;
       case 3:

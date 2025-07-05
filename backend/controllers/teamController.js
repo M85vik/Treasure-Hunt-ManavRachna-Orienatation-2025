@@ -62,16 +62,20 @@ const addScore = async (req, res) => {
         .json({ message: "Team ID and points are required." });
     }
 
+    // --- THIS IS THE FIX ---
+    // When we update the score, we ALSO explicitly set our new timestamp field.
     const updatedTeam = await Team.findByIdAndUpdate(
       teamId,
-      { $inc: { score: pointsToAdd } },
-      { new: true } // This option returns the updated document
+      {
+        $inc: { score: pointsToAdd },
+        scoreLastUpdated: new Date(), // Set the timestamp to the exact moment of the update
+      },
+      { new: true }
     );
 
     if (!updatedTeam) {
       return res.status(404).json({ message: "Team not found." });
     }
-
     res
       .status(200)
       .json({ message: "Score updated successfully", team: updatedTeam });
@@ -80,21 +84,20 @@ const addScore = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get all teams for the leaderboard, sorted by score and then time.
- * @route   GET /api/teams/leaderboard
- * @access  Public
- */
 const getLeaderboard = async (req, res) => {
   try {
-    const teams = await Team.find({}).sort({ score: -1, updatedAt: 1 });
+    // --- THIS IS THE OTHER PART OF THE FIX ---
+    // We now use our reliable `scoreLastUpdated` field for the tie-breaker.
+    // It sorts by score (desc), then by the score timestamp (asc).
+    // This correctly ranks the team that reached a score first higher in a tie.
+    const teams = await Team.find({}).sort({ score: -1, scoreLastUpdated: 1 });
+
     res.status(200).json(teams);
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
 
-// Export all controller functions
 module.exports = {
   createTeam,
   addScore,

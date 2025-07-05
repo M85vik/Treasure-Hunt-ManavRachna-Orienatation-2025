@@ -23,6 +23,13 @@ const teamSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
+    // --- THIS IS THE NEW FIELD ---
+    // A dedicated timestamp to track when the score was last changed.
+    scoreLastUpdated: {
+      type: Date,
+      default: Date.now, // Set to the creation time initially
+    },
   },
   {
     timestamps: true,

@@ -6,15 +6,16 @@ const REFRESH_INTERVAL = 300000; // 5 minutes
 
 const RankBadge = ({ rank }) => {
   const colors = {
-    1: "bg-yellow-400 text-yellow-900 border-yellow-500",
-    2: "bg-gray-300 text-gray-800 border-gray-400",
-    3: "bg-orange-400 text-orange-900 border-orange-500",
+    1: "from-yellow-400 to-yellow-500 text-yellow-900 border-yellow-300 shadow-yellow-400",
+    2: "from-gray-300 to-gray-400 text-gray-800 border-gray-300 shadow-gray-300",
+    3: "from-orange-400 to-orange-500 text-orange-900 border-orange-300 shadow-orange-300",
   };
-  const defaultColor = "bg-slate-700 text-white border-slate-600";
+  const defaultColor =
+    "from-slate-700 to-slate-800 text-white border-slate-600 shadow-slate-600";
   const colorClass = colors[rank] || defaultColor;
   return (
     <div
-      className={`w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full text-xl font-bold border-4 ${colorClass}`}
+      className={`w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full text-xl font-bold border-4 bg-gradient-to-br ${colorClass}`}
     >
       {rank}
     </div>
@@ -45,18 +46,23 @@ export default function LeaderboardScreen() {
   }, []);
 
   return (
-    <div className="bg-slate-900 text-white w-full min-h-screen p-4 sm:p-6 font-sans">
-      <div className="max-w-2xl mx-auto">
+    <div className="relative bg-gradient-to-br from-[#131826] via-[#1f2937] to-[#111827] min-h-screen flex items-center justify-center px-4 py-8 overflow-hidden">
+      {/* Floating shapes */}
+      <div className="absolute w-72 h-72 bg-gradient-to-tr from-purple-600 to-indigo-600 rounded-full blur-3xl opacity-30 top-10 left-10 animate-pulse"></div>
+      <div className="absolute w-60 h-60 bg-gradient-to-tr from-amber-500 to-yellow-400 rounded-full blur-3xl opacity-30 bottom-10 right-10 animate-pulse"></div>
+
+      <div className="relative w-full max-w-3xl bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/10 z-10">
         <header className="flex justify-between items-center mb-6">
-          <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-bold text-yellow-300">
+          <h1
+            className="flex items-center gap-3 text-3xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg"
+            style={{ fontFamily: "'Luckiest Guy', sans" }}
+          >
             <span className="text-4xl">🏆</span>
             Leaderboard
           </h1>
-
-          {/* --- THIS IS THE FINAL CORRECTED BUTTON --- */}
           <Link
             to="/hub"
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg shadow-md transition-transform hover:scale-105"
+            className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-2 px-4 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +76,6 @@ export default function LeaderboardScreen() {
                 clipRule="evenodd"
               />
             </svg>
-            {/* This div handles the stacked text */}
             <div className="text-left">
               <span className="text-xs block leading-tight font-normal">
                 Back to
@@ -80,44 +85,41 @@ export default function LeaderboardScreen() {
               </span>
             </div>
           </Link>
-          {/* --- END OF CORRECTION --- */}
         </header>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {loading && (
-            <p className="text-center text-lg text-gray-400 py-8">
+            <p className="text-center text-lg text-gray-300 py-8">
               Loading ranks...
             </p>
           )}
           {error && (
             <p className="text-center text-lg text-red-400 py-8">{error}</p>
           )}
-
           {!loading && teams.length === 0 && (
-            <p className="text-center text-lg text-gray-400 py-8">
+            <p className="text-center text-lg text-gray-300 py-8">
               No teams have scored yet. Be the first!
             </p>
           )}
-
           {teams.map((team, index) => (
             <div
               key={team._id}
-              className="bg-slate-800 p-4 rounded-lg flex items-center gap-4 shadow-md"
+              className="bg-white/10 backdrop-blur-md p-4 rounded-xl flex items-center gap-4 border border-white/10 shadow-lg transition-all hover:scale-[1.02]"
             >
               <RankBadge rank={index + 1} />
               <div className="flex-grow overflow-hidden">
                 <p className="text-xl font-bold text-white truncate">
                   {team.teamName}
                 </p>
-                <p className="text-sm text-slate-400 truncate">
-                  Team Members: {team.members.join(", ")}
+                <p className="text-sm text-gray-300 truncate">
+                  Members: {team.members.join(", ")}
                 </p>
               </div>
               <div className="text-right flex-shrink-0">
                 <p className="text-3xl font-bold text-yellow-300">
                   {team.score}
                 </p>
-                <p className="text-xs text-slate-500">Points</p>
+                <p className="text-xs text-gray-400">Points</p>
               </div>
             </div>
           ))}

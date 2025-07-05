@@ -2,18 +2,19 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { TeamContext } from "../../context/TeamContent";
 import api from "../../api/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 // --- PUZZLE CONFIGURATION ---
 const BOMB_CONFIG = {
   riddleId: 1,
-  startTime: 300,
+  startTime: 120,
   strikesAllowed: 3,
   pointsPerDefusal: 25,
   serialNumber: "A94-ZP1",
   batteryCount: 2,
 };
 
-// --- UI SUB-COMPONENTS (Timer, StrikeIndicator, Modal, etc.) ---
+// --- UI SUB-COMPONENTS ---
 const Timer = ({ timeLeft }) => {
   const minutes = Math.floor(timeLeft / 60)
     .toString()
@@ -29,6 +30,7 @@ const Timer = ({ timeLeft }) => {
     </div>
   );
 };
+
 const StrikeIndicator = ({ count, max }) => (
   <div className="flex space-x-2">
     {Array.from({ length: max }).map((_, i) => (
@@ -41,13 +43,14 @@ const StrikeIndicator = ({ count, max }) => (
     ))}
   </div>
 );
+
 const GameEndModal = ({ gameState }) => {
   if (gameState === "playing") return null;
   const isWin = gameState === "defused";
   const title = isWin ? "Bomb Defused!" : "Bomb Exploded!";
   const message = isWin
     ? `+${BOMB_CONFIG.pointsPerDefusal} Points!`
-    : "You Failed! Returning to Hub...";
+    : "Try Again!";
   return (
     <div className="absolute inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
       <div className="bg-gray-800 p-10 rounded-lg text-center border-4 border-gray-600 w-11/12 md:w-auto">
@@ -65,6 +68,8 @@ const GameEndModal = ({ gameState }) => {
     </div>
   );
 };
+
+// --- INTERACTIVE BOMB MODULES ---
 const WiresModule = ({ onDefuse, onStrike, isDefused }) => {
   const correctWireIndex = 3;
   const wireColors = ["Red", "Blue", "Yellow", "White", "Black"];
@@ -285,12 +290,16 @@ const Manual = () => (
   </div>
 );
 
-// --- MAIN PUZZLE COMPONENT ---
-export default function Puzzle1_Bomb({ onComplete }) {
+// --- MAIN PUZZLE COMPONENT (CORRECTED) ---
+export default function Puzzle1_Bomb() {
+  const navigate = useNavigate();
+  const onComplete = () => {
+    navigate("/hub");
+  };
   const { solvePuzzle } = useContext(GameContext);
   const { teamInfo, updateTeamInfo } = useContext(TeamContext);
 
-  const [gameState, setGameState] = useState("playing"); // 'playing', 'defused', 'exploded'
+  const [gameState, setGameState] = useState("playing");
   const [strikes, setStrikes] = useState(0);
   const [timeLeft, setTimeLeft] = useState(BOMB_CONFIG.startTime);
   const [defusedModules, setDefusedModules] = useState({
@@ -300,59 +309,76 @@ export default function Puzzle1_Bomb({ onComplete }) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // --- Core Game Logic ---
+  // --- THIS IS THE FIX: PART 1 ---
+  // The handleWinSequence function is now wrapped in useCallback with a stable dependency array.
+  // This prevents it from being re-created on every render, which was causing the infinite loop.
+  const handleWinSequence = useCallback(async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    solvePuzzle(BOMB_CONFIG.riddleId);
+
+    try {
+      const response = await api.post("/teams/score", {
+        teamId: teamInfo.id,
+        pointsToAdd: BOMB_CONFIG.pointsPerDefusal,
+      });
+      updateTeamInfo({ score: response.data.team.score });
+    } catch (error) {
+      console.error("Failed to save score!", error);
+    }
+  }, [isSubmitting, solvePuzzle, teamInfo.id, updateTeamInfo]); // The dependencies that, if changed, SHOULD recreate the function.
+
+  const handleReset = useCallback(() => {
+    setGameState("playing");
+    setStrikes(0);
+    setTimeLeft(BOMB_CONFIG.startTime);
+    setDefusedModules({ wires: false, keypad: false, button: false });
+    setIsSubmitting(false);
+  }, []);
+
+  // Timer countdown effect
+  useEffect(() => {
+    if (gameState !== "playing") return;
+    const timerId = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+    return () => clearInterval(timerId);
+  }, [gameState]);
+
+  // Game state check effect
   useEffect(() => {
     if (gameState !== "playing") return;
     if (Object.values(defusedModules).every(Boolean)) {
       setGameState("defused");
-      return;
-    }
-    if (strikes >= BOMB_CONFIG.strikesAllowed || timeLeft <= 0) {
+    } else if (strikes >= BOMB_CONFIG.strikesAllowed || timeLeft <= 0) {
       setGameState("exploded");
-      return;
     }
-    const timerId = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
-    return () => clearInterval(timerId);
-  }, [gameState, strikes, timeLeft, defusedModules]);
+  }, [strikes, timeLeft, defusedModules, gameState]);
 
-  // --- Navigation & Scoring Logic ---
+  // --- THIS IS THE FIX: PART 2 ---
+  // This effect, which runs after the game ends, now correctly includes its function
+  // dependencies in its dependency array.
   useEffect(() => {
     if (gameState === "defused") {
-      const handleWin = async () => {
-        if (isSubmitting) return;
-        setIsSubmitting(true);
-        solvePuzzle(BOMB_CONFIG.riddleId);
-        try {
-          const response = await api.post("/teams/score", {
-            teamId: teamInfo.id,
-            pointsToAdd: BOMB_CONFIG.pointsPerDefusal,
-          });
-          updateTeamInfo({ score: response.data.team.score });
-        } catch (error) {
-          console.error("Failed to save score!", error);
-        }
-      };
-      handleWin();
-    }
-
-    if (gameState === "defused" || gameState === "exploded") {
+      handleWinSequence();
       const timer = setTimeout(() => {
-        onComplete();
-      }, 4000);
+        navigate("/hub");
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (gameState === "exploded") {
+      const timer = setTimeout(() => {
+        navigate("/hub");
+      }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [
-    gameState,
-    isSubmitting,
-    onComplete,
-    solvePuzzle,
-    teamInfo.id,
-    updateTeamInfo,
-  ]);
+  }, [gameState, onComplete, handleReset, handleWinSequence]); // Added handleWinSequence to array.
 
-  const handleStrike = () => setStrikes((s) => s + 1);
-  const handleDefuse = (moduleName) =>
+  const handleStrike = () => {
+    if (gameState !== "playing") return;
+    setStrikes((s) => s + 1);
+  };
+  const handleDefuse = (moduleName) => {
+    if (gameState !== "playing") return;
     setDefusedModules((prev) => ({ ...prev, [moduleName]: true }));
+  };
 
   return (
     <div className="bg-gray-900 text-white w-full font-sans">
