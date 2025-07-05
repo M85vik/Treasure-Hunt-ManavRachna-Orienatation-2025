@@ -24,7 +24,7 @@ export default function HubScreen() {
           <div>
             <h1
               className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg mb-2"
-              style={{ fontFamily: "'Luckiest Guy', sans" }}
+              // style={{ fontFamily: "'Luckiest Guy', sans" }}
             >
               The Six Seals of Wisdom
             </h1>

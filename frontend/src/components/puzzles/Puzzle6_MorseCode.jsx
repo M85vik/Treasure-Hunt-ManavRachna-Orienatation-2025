@@ -10,7 +10,7 @@ import { TeamContext } from "../../context/TeamContent";
 import api from "../../api/axiosConfig";
 import { MORSE_CODE_DICT } from "../../data/morseData";
 import { WORD_LIST } from "../../data/wordList";
-
+import { useNavigate } from "react-router-dom";
 // --- PUZZLE CONFIGURATION ---
 const PUZZLE_CONFIG = { riddleId: 6, pointsPerWin: 25, timeLimit: 60 };
 
@@ -45,7 +45,11 @@ const GameEndModal = ({ isSolved, score }) => {
 };
 
 // --- MAIN PUZZLE COMPONENT (CORRECTED) ---
-export default function Puzzle6_MorseCode({ onComplete }) {
+export default function Puzzle6_MorseCode() {
+  const navigate = useNavigate();
+  const onComplete = () => {
+    navigate("/hub");
+  };
   const { solvePuzzle } = useContext(GameContext);
   const { teamInfo, updateTeamInfo } = useContext(TeamContext);
 
@@ -84,16 +88,24 @@ export default function Puzzle6_MorseCode({ onComplete }) {
 
   // --- THIS IS THE CORRECTED LOGIC ---
   useEffect(() => {
+    // if (isGameOver) {
+    //   if (isSolved) {
+    //     // If the game ended because it was a WIN, navigate away.
+    //     const timer = setTimeout(() =>  { navigate("/hub")}, 1000);
+    //     return () => clearTimeout(timer);
+    //   } else {
+    //     // If the game ended because of a LOSS (time out), just reset the puzzle.
+    //     const timer = setTimeout(() => handleReset(), 3000);
+    //     return () => clearTimeout(timer);
+    //   }
+    // }
+
     if (isGameOver) {
-      if (isSolved) {
-        // If the game ended because it was a WIN, navigate away.
-        const timer = setTimeout(() => onComplete(), 4000);
-        return () => clearTimeout(timer);
-      } else {
-        // If the game ended because of a LOSS (time out), just reset the puzzle.
-        const timer = setTimeout(() => handleReset(), 3000);
-        return () => clearTimeout(timer);
-      }
+      // If the game ended because it was a WIN, navigate away.
+      const timer = setTimeout(() => {
+        navigate("/hub");
+      }, 1000);
+      return () => clearTimeout(timer);
     }
   }, [isGameOver, isSolved, onComplete, handleReset]);
 

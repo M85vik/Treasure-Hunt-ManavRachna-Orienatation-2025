@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { TeamContext } from "../../context/TeamContent";
 import api from "../../api/axiosConfig";
-
+import { useNavigate } from "react-router-dom";
 // --- PUZZLE CONFIGURATION ---
 const PUZZLE_CONFIG = {
   riddleId: 3,
@@ -24,7 +24,11 @@ const puzzleData = [
 
 // --- MAIN PUZZLE COMPONENT ---
 // Accepts one prop: `onComplete`, a function to call when the puzzle is successfully solved.
-export default function Puzzle3_Cryptogram({ onComplete }) {
+export default function Puzzle3_Cryptogram() {
+  const navigate = useNavigate();
+  const onComplete = () => {
+    navigate("/hub");
+  };
   // Get state and functions from our global contexts
   const { solvePuzzle } = useContext(GameContext);
   const { teamInfo, updateTeamInfo } = useContext(TeamContext);
@@ -50,7 +54,9 @@ export default function Puzzle3_Cryptogram({ onComplete }) {
   useEffect(() => {
     if (isSolved) {
       // Wait 3 seconds for the user to see the success message.
-      const timer = setTimeout(() => onComplete(), 3000);
+      const timer = setTimeout(() => {
+        navigate("/hub");
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [isSolved, onComplete]);

@@ -52,16 +52,31 @@ const GameEndModal = ({ gameState }) => {
     ? `+${BOMB_CONFIG.pointsPerDefusal} Points!`
     : "Try Again!";
   return (
-    <div className="absolute inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-      <div className="bg-gray-800 p-10 rounded-lg text-center border-4 border-gray-600 w-11/12 md:w-auto">
+    // <div className="absolute inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+    //   <div className="bg-gray-800 p-10 rounded-lg text-center border-4 border-gray-600 w-11/12 md:w-auto">
+    //     <h2
+    //       className={`text-5xl md:text-6xl font-bold mb-2 ${
+    //         isWin ? "text-lime-400" : "text-red-500"
+    //       }`}
+    //     >
+    //       {title}
+    //     </h2>
+    //     <p className="text-xl md:text-2xl text-yellow-300 font-semibold">
+    //       {message}
+    //     </p>
+    //   </div>
+    // </div>
+
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+      <div className="bg-gray-800 p-6 sm:p-8 md:p-10 rounded-xl text-center border-4 border-gray-600 w-11/12 max-w-md mx-auto">
         <h2
-          className={`text-5xl md:text-6xl font-bold mb-2 ${
+          className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-4 ${
             isWin ? "text-lime-400" : "text-red-500"
           }`}
         >
           {title}
         </h2>
-        <p className="text-xl md:text-2xl text-yellow-300 font-semibold">
+        <p className="text-lg sm:text-xl md:text-2xl text-yellow-300 font-semibold">
           {message}
         </p>
       </div>

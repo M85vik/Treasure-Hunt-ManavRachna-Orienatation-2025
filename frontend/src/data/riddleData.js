@@ -2,7 +2,7 @@ export const riddleData = [
   {
     id: 1,
     riddle:
-      "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?",
+      "Where silence reigns and wisdom grows,Ideas bloom where no wind blows. Seek where pages whisper lore,The cerebral gate, your journey’s core.",
     passcode: "1234",
     color: "bg-blue-300",
     isRiddleSolved: false, // Renamed from isUnlocked
@@ -10,7 +10,8 @@ export const riddleData = [
   },
   {
     id: 2,
-    riddle: "What has an eye, but cannot see?",
+    riddle:
+      "Where rackets fly and punches land, Strength and focus go hand in hand. From shuttle’s dance to iron's clang, This is where the champions hang.",
     passcode: "5678",
     color: "bg-green-300",
     isRiddleSolved: false,
@@ -18,7 +19,8 @@ export const riddleData = [
   },
   {
     id: 3,
-    riddle: "What is so fragile that saying its name breaks it?",
+    riddle:
+      "In loops and bits your next code hides,Where digital minds and logic collides.Bugs beware, the seeker’s here, the answer lies where screens appear.",
     passcode: "1122",
     color: "bg-indigo-300",
     isRiddleSolved: false,
@@ -26,7 +28,8 @@ export const riddleData = [
   },
   {
     id: 4,
-    riddle: "What has to be broken before you can use it?",
+    riddle:
+      "Sparks and wires, circuits tight,Inventors dream in glowing light. Where volts align and logic flows, A shocking truth the seeker knows.",
     passcode: "9900",
     color: "bg-yellow-300",
     isRiddleSolved: false,
@@ -35,7 +38,7 @@ export const riddleData = [
   {
     id: 5,
     riddle:
-      "I am tall when I am young, and I am short when I am old. What am I?",
+      "Where sweat meets earth and spirits rise, Under open and endless skies. Bounce or run, the code you seek,Is found where bodies, not minds, speak.",
     passcode: "2468",
     color: "bg-orange-300",
     isRiddleSolved: false,
@@ -43,7 +46,8 @@ export const riddleData = [
   },
   {
     id: 6,
-    riddle: "What goes up but never comes down?",
+    riddle:
+      "You’ve braved the code, the game, the spark,From silent shelves to circuits dark. One final stage before you rest. A voice will crown the very best.",
     passcode: "1357",
     color: "bg-purple-300",
     isRiddleSolved: false,

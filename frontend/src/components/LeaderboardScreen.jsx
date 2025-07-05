@@ -53,11 +53,8 @@ export default function LeaderboardScreen() {
 
       <div className="relative w-full max-w-3xl bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/10 z-10">
         <header className="flex justify-between items-center mb-6">
-          <h1
-            className="flex items-center gap-3 text-3xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg"
-            style={{ fontFamily: "'Luckiest Guy', sans" }}
-          >
-            <span className="text-4xl">🏆</span>
+          <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg">
+            <span className="text-2xl">🏆</span>
             Leaderboard
           </h1>
           <Link
@@ -78,10 +75,7 @@ export default function LeaderboardScreen() {
             </svg>
             <div className="text-left">
               <span className="text-xs block leading-tight font-normal">
-                Back to
-              </span>
-              <span className="text-base block leading-tight font-bold">
-                Hub
+                Back
               </span>
             </div>
           </Link>

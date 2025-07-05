@@ -94,7 +94,7 @@ export default function WelcomeScreen() {
 
       <div className="z-10 text-center px-4">
         <span
-          className="block text-xl sm:text-lg md:text-xl font-semibold tracking-widest text-amber-400 uppercase mb-4  pb-20"
+          className="block text-3xl sm:text-lg md:text-5xl font-semibold tracking-widest text-amber-400 uppercase mb-4  pb-20"
           style={{ fontFamily: "'Luckiest Guy', sans" }}
         >
           MRU Presents
@@ -116,17 +116,21 @@ export default function WelcomeScreen() {
       <div className="z-10 absolute bottom-0 pb-10 text-center">
         <Link
           to="/admin/login"
-          className="  text-lg font-bold   text-amber-400 hover:text-amber-500 hover:underline transition-colors "
+          className="  text-lg font-bold   text-amber-500 hover:text-amber-600 transition-colors "
         >
           Admin Login
         </Link>
         <br />
         <Link
           to="/about"
-          className="hover:text-blue-600 hover:underline transition-colors"
+          className="text-amber-500 hover:text-amber-600 transition-colors font-bold "
         >
           About Us
         </Link>
+
+        <div className="bottom-0 pt-4">
+          © 2025 Team M85. All rights reserved.
+        </div>
       </div>
     </div>
   );

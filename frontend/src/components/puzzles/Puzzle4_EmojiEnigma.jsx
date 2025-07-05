@@ -254,7 +254,7 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { TeamContext } from "../../context/TeamContent";
 import api from "../../api/axiosConfig";
-
+import { useNavigate } from "react-router-dom";
 // --- PUZZLE CONFIGURATION ---
 const PUZZLE_CONFIG = {
   riddleId: 4,
@@ -346,7 +346,11 @@ const GameEndModal = ({ gameState, score }) => {
 };
 
 // --- MAIN PUZZLE COMPONENT ---
-export default function Puzzle4_EmojiEnigma({ onComplete }) {
+export default function Puzzle4_EmojiEnigma() {
+  const navigate = useNavigate();
+  const onComplete = () => {
+    navigate("/hub");
+  };
   const { solvePuzzle } = useContext(GameContext);
   const { teamInfo, updateTeamInfo } = useContext(TeamContext);
 
@@ -369,7 +373,9 @@ export default function Puzzle4_EmojiEnigma({ onComplete }) {
 
   useEffect(() => {
     if (gameState === "solved") {
-      const timer = setTimeout(() => onComplete(), 4000);
+      const timer = setTimeout(() => {
+        navigate("/hub");
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [gameState, onComplete]);
@@ -381,7 +387,10 @@ export default function Puzzle4_EmojiEnigma({ onComplete }) {
     if (userInput !== enigma.solution) {
       setGameState("failed");
       setFeedback("Access Denied. Code incorrect.");
-      setTimeout(() => handleReset(), 3000);
+      // setTimeout(() => handleReset(), 3000);
+      setTimeout(() => {
+        navigate("/hub");
+      }, 1000);
       return;
     }
 

@@ -14,9 +14,9 @@ export default function PuzzleScreen() {
   const navigate = useNavigate();
 
   // This function is passed to each puzzle component to call upon successful completion.
-  const onPuzzleComplete = () => {
-    navigate("/hub");
-  };
+  // const onPuzzleComplete = () => {
+  //   navigate("/hub");
+  // };
 
   // This function selects which puzzle to render based on the URL ID.
   const renderPuzzle = () => {
@@ -24,15 +24,15 @@ export default function PuzzleScreen() {
       case 1:
         return <Puzzle1_Bomb />;
       case 2:
-        return <Puzzle2_Chemistry onComplete={onPuzzleComplete} />;
+        return <Puzzle2_Chemistry />;
       case 3:
-        return <Puzzle3_Cryptogram onComplete={onPuzzleComplete} />;
+        return <Puzzle3_Cryptogram />;
       case 4:
-        return <Puzzle4_EmojiEnigma onComplete={onPuzzleComplete} />;
+        return <Puzzle4_EmojiEnigma />;
       case 5:
-        return <Puzzle5_MasterThief onComplete={onPuzzleComplete} />;
+        return <Puzzle5_MasterThief />;
       case 6:
-        return <Puzzle6_MorseCode onComplete={onPuzzleComplete} />;
+        return <Puzzle6_MorseCode />;
       default:
         // A fallback for invalid puzzle IDs.
         return (
@@ -61,7 +61,7 @@ export default function PuzzleScreen() {
           to="/hub"
           className="bg-black/50 hover:bg-black/80 text-white font-bold py-2 px-4 rounded-lg backdrop-blur-sm transition-colors"
         >
-          ← Exit to Hub
+          ← Exit
         </Link>
       </div>
 

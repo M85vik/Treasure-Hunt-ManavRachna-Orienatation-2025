@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { TeamContext } from "../../context/TeamContent";
 import api from "../../api/axiosConfig";
-
+import { useNavigate } from "react-router-dom";
 // --- PUZZLE CONFIGURATION ---
 const PUZZLE_CONFIG = {
   riddleId: 5,
@@ -78,7 +78,11 @@ const Dial = ({ id, label, options, value, onChange, disabled }) => (
 );
 
 // --- MAIN PUZZLE COMPONENT ---
-export default function Puzzle5_MasterThief({ onComplete }) {
+export default function Puzzle5_MasterThief() {
+  const navigate = useNavigate();
+  const onComplete = () => {
+    navigate("/hub");
+  };
   const { solvePuzzle } = useContext(GameContext);
   const { teamInfo, updateTeamInfo } = useContext(TeamContext);
 
@@ -117,12 +121,8 @@ export default function Puzzle5_MasterThief({ onComplete }) {
   useEffect(() => {
     if (gameState === "cracked" || gameState === "failed") {
       const timer = setTimeout(() => {
-        if (gameState === "cracked") {
-          onComplete(); // Navigate away on win
-        } else {
-          handleReset(); // Reset the puzzle on loss
-        }
-      }, 4000);
+        navigate("/hub");
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [gameState, onComplete, handleReset]);

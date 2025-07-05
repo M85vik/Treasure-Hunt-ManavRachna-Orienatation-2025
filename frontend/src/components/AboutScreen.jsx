@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const CreditCard = ({ name, role, description, imageUrl }) => (
   <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-xl text-center transform hover:scale-105 transition-transform duration-300 border border-white/10">
     {/* Avatar image */}
-    <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-cyan-300">
+    <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-amber-500 ">
       <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
     </div>
     <h3 className="text-xl font-bold text-cyan-300">{name}</h3>
@@ -18,25 +18,46 @@ export default function AboutScreen() {
   // Example team data
   const figmaDesigners = [
     {
-      name: " Designer 1",
+      name: "Rimjhim",
       role: "UI/UX & Figma Designer",
-      description: "Crafted all screens and interactions beautifully in Figma.",
-      imageUrl: "/images/junior1.jpg",
+      description: "CSE 5B",
+      imageUrl: "/images/avatarfp.png",
     },
     {
-      name: " Designer 2",
+      name: "Lavanya",
       role: "UI/UX & Figma Designer",
-      description: "Helped polish the visuals and ensured smooth user flow.",
-      imageUrl: "/images/junior2.jpg",
+      description: "CSE 5B",
+      imageUrl: "/images/avatar2.png",
+    },
+
+    {
+      name: "Somya",
+      role: "UI/UX & Figma Designer",
+      description: "CSE 5B",
+      imageUrl: "/images/avatar3.png",
+    },
+
+    {
+      name: "Vaishnavi",
+      role: "UI/UX & Figma Designer",
+      description: "CSE 5B",
+      imageUrl: "/images/avatar4.jpg",
     },
   ];
 
   const coLeads = [
     {
-      name: "Co-Lead's Name",
-      role: "Co-Lead & Concept Designer",
-      description: "Shaped the project's vision and guided design direction.",
-      imageUrl: "/images/colead.jpg",
+      name: "Vikas Sharma",
+      role: "Co-Lead & App Developer",
+      description: "CSE 6B",
+      imageUrl: "/images/vik.png",
+    },
+
+    {
+      name: "Harsh Vardhan",
+      role: "Co-Lead & App Developer",
+      description: "CSE 6B",
+      imageUrl: "/images/avatarhv.png",
     },
   ];
 
@@ -104,7 +125,7 @@ export default function AboutScreen() {
         </section>
 
         {/* Core team */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-amber-300 mb-6 text-center">
             💪 Core Team
           </h2>
@@ -119,7 +140,7 @@ export default function AboutScreen() {
               />
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Back button */}
         <div className="text-center mt-16">

@@ -77,12 +77,12 @@ export default function RiddleScreen() {
             to="/hub"
             className="text-sm text-green-300 hover:underline transition-colors"
           >
-            ← Back to Hub
+            ← Back
           </Link>
         </div>
         <h2
           className="text-3xl font-bold text-center bg-gradient-to-r from-green-400 via-lime-400 to-green-500 bg-clip-text text-transparent drop-shadow-lg mb-6"
-          style={{ fontFamily: "'Luckiest Guy', sans" }}
+          // style={{ fontFamily: "'Luckiest Guy', sans" }}
         >
           The Riddle of Seal #{currentRiddle.id}
         </h2>

@@ -3,7 +3,7 @@ import { GameContext } from "../../context/GameContext";
 import { TeamContext } from "../../context/TeamContent";
 import api from "../../api/axiosConfig";
 import { QUIZ_DATA } from "../../data/chemistryQuizData"; // Import data from our new file
-
+import { useNavigate } from "react-router-dom";
 // --- PUZZLE CONFIGURATION ---
 const PUZZLE_CONFIG = {
   riddleId: 2, // The ID of the riddle that unlocks this puzzle.
@@ -37,7 +37,11 @@ const GameEndModal = ({ isSolved, score }) => {
 
 // --- MAIN PUZZLE COMPONENT ---
 // This component accepts one prop: `onComplete`, a function to call when the puzzle is successfully solved.
-export default function Puzzle2_Chemistry({ onComplete }) {
+export default function Puzzle2_Chemistry() {
+  const navigate = useNavigate();
+  const onComplete = () => {
+    navigate("/hub");
+  };
   // Get state and functions from our global contexts
   const { solvePuzzle } = useContext(GameContext);
   const { teamInfo, updateTeamInfo } = useContext(TeamContext);
@@ -70,7 +74,9 @@ export default function Puzzle2_Chemistry({ onComplete }) {
   useEffect(() => {
     if (isGameOver) {
       // Wait 3 seconds for the user to see the modal, then navigate.
-      const timer = setTimeout(() => onComplete(), 3000);
+      const timer = setTimeout(() => {
+        navigate("/hub");
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [isGameOver, onComplete]);
