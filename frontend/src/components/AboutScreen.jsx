@@ -54,7 +54,7 @@ export default function AboutScreen() {
       role: "UI/UX & Figma Designer",
       description: "CSE 5B",
       imageUrl: "/images/avatar4.jpg",
-      linkedin: "https://www.linkedin.com/in/vaishnavi-profile",
+      linkedin: "https://www.linkedin.com/in/vaishnavi-gautam-10b54a284",
     },
   ];
 
