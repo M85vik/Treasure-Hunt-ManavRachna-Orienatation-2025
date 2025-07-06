@@ -1,16 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// CreditCard component with avatar
-const CreditCard = ({ name, role, description, imageUrl }) => (
+// CreditCard component with avatar and LinkedIn button
+const CreditCard = ({ name, role, description, imageUrl, linkedin }) => (
   <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-xl text-center transform hover:scale-105 transition-transform duration-300 border border-white/10">
     {/* Avatar image */}
-    <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-amber-500 ">
+    <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-amber-500">
       <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
     </div>
     <h3 className="text-xl font-bold text-cyan-300">{name}</h3>
     <p className="text-yellow-300 font-semibold mb-2">{role}</p>
-    <p className="text-gray-300 text-sm">{description}</p>
+    <p className="text-gray-300 text-sm mb-4">{description}</p>
+
+    {linkedin && (
+      <a
+        href={linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-amber-600 hover:to-orange-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+      >
+        LinkedIn
+      </a>
+    )}
   </div>
 );
 
@@ -22,26 +33,28 @@ export default function AboutScreen() {
       role: "UI/UX & Figma Designer",
       description: "CSE 5B",
       imageUrl: "/images/avatarfp.png",
+      linkedin: "https://www.linkedin.com/in/rimjhim-verma-599447290",
     },
     {
       name: "Lavanya",
       role: "UI/UX & Figma Designer",
       description: "CSE 5B",
       imageUrl: "/images/avatar2.png",
+      linkedin: "https://www.linkedin.com/in/lavanya-pulani-a46421283",
     },
-
     {
       name: "Somya",
       role: "UI/UX & Figma Designer",
       description: "CSE 5B",
       imageUrl: "/images/avatar3.png",
+      linkedin: "https://www.linkedin.com/in/somya-prabhakar-b64759285/",
     },
-
     {
       name: "Vaishnavi",
       role: "UI/UX & Figma Designer",
       description: "CSE 5B",
       imageUrl: "/images/avatar4.jpg",
+      linkedin: "https://www.linkedin.com/in/vaishnavi-profile",
     },
   ];
 
@@ -51,25 +64,27 @@ export default function AboutScreen() {
       role: "Co-Lead & App Developer",
       description: "CSE 6B",
       imageUrl: "/images/vik.png",
+      linkedin: "https://www.linkedin.com/in/vikas-sharma0b/",
     },
-
     {
       name: "Harsh Vardhan",
       role: "Co-Lead & App Developer",
       description: "CSE 6B",
       imageUrl: "/images/avatarhv.png",
+      linkedin: "https://www.linkedin.com/in/harsh-profile",
     },
   ];
 
-  const coreTeam = [
-    {
-      name: "Your Name",
-      role: "Project Lead & Lead Developer",
-      description:
-        "Built the core logic, backend APIs, and integrated the riddles.",
-      imageUrl: "/images/lead.jpg",
-    },
-  ];
+  // const coreTeam = [
+  //   {
+  //     name: "Your Name",
+  //     role: "Project Lead & Lead Developer",
+  //     description:
+  //       "Built the core logic, backend APIs, and integrated the riddles.",
+  //     imageUrl: "/images/lead.jpg",
+  //     linkedin: "https://www.linkedin.com/in/your-profile",
+  //   },
+  // ];
 
   return (
     <div className="relative bg-gradient-to-br from-[#131826] via-[#1f2937] to-[#111827] min-h-screen text-white p-6">
@@ -88,7 +103,7 @@ export default function AboutScreen() {
           </p>
         </header>
 
-        {/* Figma designers first */}
+        {/* Designers */}
         <section className="mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-cyan-300 mb-6 text-center">
             ✨ Designers
@@ -101,6 +116,7 @@ export default function AboutScreen() {
                 role={member.role}
                 description={member.description}
                 imageUrl={member.imageUrl}
+                linkedin={member.linkedin}
               />
             ))}
           </div>
@@ -119,6 +135,7 @@ export default function AboutScreen() {
                 role={member.role}
                 description={member.description}
                 imageUrl={member.imageUrl}
+                linkedin={member.linkedin}
               />
             ))}
           </div>
@@ -137,6 +154,7 @@ export default function AboutScreen() {
                 role={member.role}
                 description={member.description}
                 imageUrl={member.imageUrl}
+                linkedin={member.linkedin}
               />
             ))}
           </div>

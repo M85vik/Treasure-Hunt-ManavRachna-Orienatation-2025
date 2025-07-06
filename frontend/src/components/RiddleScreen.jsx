@@ -46,17 +46,15 @@ export default function RiddleScreen() {
 
   if (currentRiddle.isRiddleSolved) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-violet-700 to-purple-500 px-4">
         <div className="w-full max-w-2xl p-8 rounded-3xl bg-white/30 backdrop-blur-md shadow-2xl text-center border border-white/10">
-          <h2 className="text-3xl font-bold text-yellow-800 mb-6">
+          <h2 className="text-2xl font-bold text-white  mb-6">
             Riddle for Seal #{currentRiddle.id} is Solved!
           </h2>
-          <p className="text-xl text-yellow-900">
-            The path to the puzzle is open.
-          </p>
+          <p className="text-xl text-white">The path to the puzzle is open.</p>
           <Link
             to={`/puzzle/${currentRiddle.id}`}
-            className="inline-block mt-6 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-bold py-3 px-6 rounded-xl text-lg shadow-xl transform hover:scale-105 transition-all"
+            className="inline-block mt-6 bg-gradient-to-r from-green-800 to-purple-600 hover:from-green-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-xl text-lg shadow-xl transform hover:scale-105 transition-all"
           >
             Go to Puzzle #{currentRiddle.id} →
           </Link>
@@ -81,7 +79,7 @@ export default function RiddleScreen() {
           </Link>
         </div>
         <h2
-          className="text-3xl font-bold text-center bg-gradient-to-r from-green-400 via-lime-400 to-green-500 bg-clip-text text-transparent drop-shadow-lg mb-6"
+          className="text-2xl font-bold text-center bg-gradient-to-r from-green-400 via-lime-400 to-green-500 bg-clip-text text-transparent drop-shadow-lg mb-6"
           // style={{ fontFamily: "'Luckiest Guy', sans" }}
         >
           The Riddle of Seal #{currentRiddle.id}

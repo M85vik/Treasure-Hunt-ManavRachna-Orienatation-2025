@@ -23,7 +23,7 @@ export default function WelcomeScreen() {
     switch (gameStatus) {
       case "loading":
         return (
-          <p className="text-gray-700 mt-4 mb-8 animate-pulse">
+          <p className="text-white mt-4 mb-8 animate-pulse">
             Connecting to the hunt...
           </p>
         );
@@ -94,7 +94,7 @@ export default function WelcomeScreen() {
 
       <div className="z-10 text-center px-4">
         <span
-          className="block text-3xl sm:text-lg md:text-5xl font-semibold tracking-widest text-amber-400 uppercase mb-4  pb-20"
+          className="block text-3xl sm:text-lg md:text-5xl font-semibold tracking-widest text-amber-600 uppercase mb-4  pb-20"
           style={{ fontFamily: "'Luckiest Guy', sans" }}
         >
           MRU Presents
@@ -103,7 +103,7 @@ export default function WelcomeScreen() {
         <div className="bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/20 max-w-md mx-auto">
           <span className="text-6xl mb-4 inline-block">🧭</span>
           <h1
-            className="text-4xl font-bold bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg mb-2"
+            className="text-2xl font-bold bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg mb-2"
             style={{ fontFamily: "'Luckiest Guy', sans" }}
           >
             The Great Digital Treasure Hunt!

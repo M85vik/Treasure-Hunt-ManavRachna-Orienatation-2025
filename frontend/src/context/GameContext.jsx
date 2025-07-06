@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { riddleData } from "../data/riddleData";
 export const GameContext = createContext();
+
 export const GameProvider = ({ children }) => {
   const [riddles, setRiddles] = useState(() => {
     try {

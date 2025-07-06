@@ -31,7 +31,7 @@ function TeamDetailsScreen() {
 
       <div className="relative bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/10 max-w-md w-full z-10">
         <h2
-          className="text-3xl font-bold text-center bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg mb-6"
+          className="text-2xl font-bold text-center bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg mb-6"
           style={{ fontFamily: "'Luckiest Guy', sans" }}
         >
           Create Your Team

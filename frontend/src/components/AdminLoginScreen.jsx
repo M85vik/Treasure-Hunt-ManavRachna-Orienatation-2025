@@ -61,16 +61,15 @@ export default function AdminLoginScreen() {
               id="passcode"
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
-              maxLength="4"
               className="w-full p-3 bg-gray-800/80 border border-gray-700 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-white placeholder-gray-400 transition"
-              placeholder="4-digit passcode"
+              placeholder="passcode"
               autoComplete="current-password"
             />
           </div>
           {error && <p className="text-red-400 text-sm text-center">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 hover:from-yellow-500 hover:to-pink-500 text-gray-900 font-bold py-3 rounded-lg text-lg shadow-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold py-3 rounded-lg text-lg shadow-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400"
           >
             Login
           </button>
