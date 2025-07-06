@@ -71,7 +71,8 @@ export default function AboutScreen() {
       role: "Co-Lead & App Developer",
       description: "CSE 6B",
       imageUrl: "/images/avatarhv.png",
-      linkedin: "https://www.linkedin.com/in/harsh-profile",
+      linkedin:
+        "http://www.linkedin.com/in/harsh-vardhan-kumar-mishra-24364a24b",
     },
   ];
 

@@ -73,11 +73,11 @@ export default function LeaderboardScreen() {
                 clipRule="evenodd"
               />
             </svg>
-            <div className="text-left">
+            {/* <div className="text-left">
               <span className="text-xs block leading-tight font-normal">
                 Back
               </span>
-            </div>
+            </div> */}
           </Link>
         </header>
 
