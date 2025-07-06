@@ -57,7 +57,7 @@ export default function LeaderboardScreen() {
             <span className="text-2xl">🏆</span>
             Leaderboard
           </h1>
-          <Link
+          {/* <Link
             to="/hub"
             className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-2 px-4 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300"
           >
@@ -73,12 +73,12 @@ export default function LeaderboardScreen() {
                 clipRule="evenodd"
               />
             </svg>
-            {/* <div className="text-left">
+            <div className="text-left">
               <span className="text-xs block leading-tight font-normal">
                 Back
               </span>
-            </div> */}
-          </Link>
+            </div>
+          </Link> */}
         </header>
 
         <div className="space-y-4">
