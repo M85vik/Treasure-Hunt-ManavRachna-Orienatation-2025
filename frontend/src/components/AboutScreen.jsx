@@ -74,6 +74,15 @@ export default function AboutScreen() {
       linkedin:
         "http://www.linkedin.com/in/harsh-vardhan-kumar-mishra-24364a24b",
     },
+
+    {
+      name: "Anurag Rana ",
+      role: "Photography",
+      description: "CSE 6B",
+      imageUrl: "/images/avatar5.jpg",
+      linkedin:
+        "https://www.linkedin.com/in/anurag-rana-427620a7/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+    },
   ];
 
   // const coreTeam = [
