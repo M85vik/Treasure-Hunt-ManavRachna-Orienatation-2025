@@ -116,55 +116,55 @@ Follow the visual journey below to understand the flow of the Treasure Hunt expe
 
 ### 🏠 Home Page
 > This is the welcome screen for players. They can start the game, learn how it works, or register/login.
-<img src="./screenshots/homePage.png" alt="Home Page" width="600"/>
+<img src="./screenshots/homePage.png" alt="Home Page" width="400" height="800"/>
 
 ---
 
 ### 👥 Team Creation
 > Players can form teams or register as individuals.
-<img src="./screenshots/teamCreation.png" alt="Team Creation Page" width="600"/>
+<img src="./screenshots/teamCreation.png" alt="Team Creation Page" width="400" height="800"/>
 
 ---
 
 ### 🔑 Login & Password Page
 > A secure login page where users enter credentials or team code.
-<img src="./screenshots/passwordpage.png" alt="Password Page" width="600"/>
+<img src="./screenshots/passwordpage.png" alt="Password Page" width="400" height="800"/>
 
 ---
 
 ### 🧩 Clue Interface – Riddle
 > An example of a text-based riddle challenge.
-<img src="./screenshots/riddlePage.png" alt="Riddle Clue" width="600"/>
+<img src="./screenshots/riddlePage.png" alt="Riddle Clue" width="400" height="800"/>
 
 ---
 
 ### 🧠 Clue Interface – Chemistry Puzzle
 > Players solve chemistry-related visual problems.
-<img src="./screenshots/chemistery puzzle.png" alt="Chemistry Puzzle Clue" width="600"/>
+<img src="./screenshots/chemistery puzzle.png" alt="Chemistry Puzzle Clue" width="400" height="800"/>
 
 ---
 
 ### 💣 Clue Interface – Bomb Puzzle
 > A critical thinking challenge with a ticking visual clue.
-<img src="./screenshots/bombpuzzle.png" alt="Bomb Puzzle" width="600"/>
+<img src="./screenshots/bombpuzzle.png" alt="Bomb Puzzle" width="400" height="800"/>
 
 ---
 
 ### 🔐 Vault Challenge
 > A final clue requiring users to input a vault code to unlock the end.
-<img src="./screenshots/vault.png" alt="Vault Puzzle" width="600"/>
+<img src="./screenshots/vault.png" alt="Vault Puzzle" width="400" height="800"/>
 
 ---
 
 ### 📊 Leaderboard
 > Displays real-time or final scores based on clue completion times.
-<img src="./screenshots/leaderpage.png" alt="Leaderboard" width="600"/>
+<img src="./screenshots/leaderpage.png" alt="Leaderboard" width="400" height="800"/>
 
 ---
 
 ### 🧑‍💻 Admin Panel
 > Admins can track team progress, reset clues, and manage users.
-<img src="./screenshots/admin.png" alt="Admin Panel" width="600"/>
+<img src="./screenshots/admin.png" alt="Admin Panel" width="400" height="800"/>
 
 
 ---
