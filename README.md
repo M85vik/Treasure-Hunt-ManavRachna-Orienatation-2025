@@ -108,18 +108,64 @@ npm run dev
 ---
 
 
-### 🧭 Landing Page
-![Landing Page Screenshot](./screenshots/home.png)
+## 📸 Screenshots & Game Flow
+
+Follow the visual journey below to understand the flow of the Treasure Hunt experience:
 
 ---
 
-### 🧩 Clue Interface
-![Clue Interface](./screenshots/image.png)
+### 🏠 Home Page
+> This is the welcome screen for players. They can start the game, learn how it works, or register/login.
+<img src="./screenshot/homePage.png" alt="Home Page" width="600"/>
 
 ---
 
-### 📊 Live Progress / Leaderboard
-![Leaderboard](./screenshots/leaderboard.png)
+### 👥 Team Creation
+> Players can form teams or register as individuals.
+<img src="./screenshot/teamCreation.png" alt="Team Creation Page" width="600"/>
+
+---
+
+### 🔑 Login & Password Page
+> A secure login page where users enter credentials or team code.
+<img src="./screenshot/passwordpage.png" alt="Password Page" width="600"/>
+
+---
+
+### 🧩 Clue Interface – Riddle
+> An example of a text-based riddle challenge.
+<img src="./screenshot/riddlePage.png" alt="Riddle Clue" width="600"/>
+
+---
+
+### 🧠 Clue Interface – Chemistry Puzzle
+> Players solve chemistry-related visual problems.
+<img src="./screenshot/chemistery puzzle.png" alt="Chemistry Puzzle Clue" width="600"/>
+
+---
+
+### 💣 Clue Interface – Bomb Puzzle
+> A critical thinking challenge with a ticking visual clue.
+<img src="./screenshot/bombpuzzle.png" alt="Bomb Puzzle" width="600"/>
+
+---
+
+### 🔐 Vault Challenge
+> A final clue requiring users to input a vault code to unlock the end.
+<img src="./screenshot/vault.png" alt="Vault Puzzle" width="600"/>
+
+---
+
+### 📊 Leaderboard
+> Displays real-time or final scores based on clue completion times.
+<img src="./screenshot/leaderpage.png" alt="Leaderboard" width="600"/>
+
+---
+
+### 🧑‍💻 Admin Panel
+> Admins can track team progress, reset clues, and manage users.
+<img src="./screenshot/admin.png" alt="Admin Panel" width="600"/>
+
 
 ---
 
