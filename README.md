@@ -17,8 +17,6 @@ Our mission is to provide a **memorable and immersive experience** that helps st
 
 ## ✨ Key Features
 
-- **🧩 Interactive Digital Clues** – Presented in diverse formats to challenge observation and logic.
-- **🔓 Progressive Clue System** – Unlock the next stage by solving the previous one.
 - **👥 Flexible Team Play** – Play solo or collaborate as a team.
 - **📈 Real-time Progress Tracking** *(Optional)* – Live tracking of participants.
 - **⏱️ Competitive Scoring** *(Optional)* – Race against time to complete all clues.
@@ -36,7 +34,6 @@ Ensure you have the following installed:
 - **npm** or **Yarn**
 - **Git**
 - **Modern Web Browser** (Chrome, Firefox, Edge)
-- *(Optional)* MongoDB / PostgreSQL / Firebase Firestore (depending on your config)
 
 ---
 
@@ -52,11 +49,13 @@ cd Treasure-Hunt-ManavRachna-Orientation-2025
 ### 📥 Install Dependencies
 
 ```bash
-# Using npm
-npm install
+# for frontend
+cd frontend
+npm install 
 
-# OR using Yarn
-yarn install
+# for backend
+cd backend
+npm install
 ```
 
 ---
@@ -80,22 +79,21 @@ ADMIN_PASSWORD=your_secure_admin_password
 ### ▶️ Start the App
 
 ```bash
-npm start
-# or
-yarn start
-```
+# frontend
+npm run dev
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+#backend
+npm run dev
+```
 
 ---
 
 ### 👤 Player Journey
 
-1. Register or login with team/individual details
-2. Receive the first clue
-3. Solve and submit the answer
-4. Unlock the next clue upon a correct answer
-5. Continue solving clues until the final victory!
+1. Register with team/individual details.
+2. Open the seal, solve the riddle, and find the passcode.
+3. Solve the puzzle, and score points
+4. Continue solving clues until the final victory!
 
 ---
 
@@ -104,49 +102,70 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 1. Visit: `http://localhost:3000/admin`
 2. Login with your credentials
 3. Manage game state:
-   - Update/view clues
-   - Monitor progress
-   - Reset data or leaderboard
+   - Start or stop the game
+   - Monitor leaderboard
 
 ---
 
-## 📸 Screenshots & Demo
 
-> 📷 Replace the image links below with your actual images or GIFs
+## 📸 Screenshots & Game Flow
 
-### 🧭 Landing Page
-![Landing Page Screenshot](./screenshots/landing.png)
+Follow the visual journey below to understand the flow of the Treasure Hunt experience:
 
 ---
 
-### 🧩 Clue Interface
-![Clue Interface](./screenshots/image.png)
+### 🏠 Home Page
+> This is the welcome screen for players. They can start the game, learn how it works, or register/login.
+<img src="./screenshots/homePage.png" alt="Home Page" width="400" height="800"/>
 
 ---
 
-### 📊 Live Progress / Leaderboard
-![Leaderboard](./screenshots/leaderboard.png)
+### 👥 Team Creation
+> Players can form teams or register as individuals.
+<img src="./screenshots/teamCreation.png" alt="Team Creation Page" width="400" height="800"/>
 
 ---
 
-## 📊 Game Flowchart (Mermaid)
+### 🔑 Login & Password Page
+> A secure login page where users enter credentials or team code.
+<img src="./screenshots/passwordpage.png" alt="Password Page" width="400" height="800"/>
 
-```mermaid
-graph TD
-    A[Start Game/Orientation Event] --> B{Participant Registers?}
-    B -- Yes --> C[Receive First Clue]
-    C --> D[Analyze Clue]
-    D --> E{Answer Found?}
-    E -- Yes --> F[Submit Answer]
-    F --> G{Correct Answer?}
-    G -- Yes --> H[Next Clue]
-    H --> I{Final Clue?}
-    I -- No --> D
-    I -- Yes --> J[Complete Hunt 🎉]
-    G -- No --> K[Try Again or Get Hint]
-    K --> D
-    B -- No --> B
-```
+---
+
+### 🧩 Clue Interface – Riddle
+> An example of a text-based riddle challenge.
+<img src="./screenshots/riddlePage.png" alt="Riddle Clue" width="400" height="800"/>
+
+---
+
+### 🧠 Clue Interface – Chemistry Puzzle
+> Players solve chemistry-related visual problems.
+<img src="./screenshots/chemistery puzzle.png" alt="Chemistry Puzzle Clue" width="400" height="800"/>
+
+---
+
+### 💣 Clue Interface – Bomb Puzzle
+> A critical thinking challenge with a ticking visual clue.
+<img src="./screenshots/bombpuzzle.png" alt="Bomb Puzzle" width="400" height="800"/>
+
+---
+
+### 🔐 Vault Challenge
+> A final clue requiring users to input a vault code to unlock the end.
+<img src="./screenshots/vault.png" alt="Vault Puzzle" width="400" height="800"/>
+
+---
+
+### 📊 Leaderboard
+> Displays real-time or final scores based on clue completion times.
+<img src="./screenshots/leaderpage.png" alt="Leaderboard" width="400" height="800"/>
+
+---
+
+### 🧑‍💻 Admin Panel
+> Admins can track team progress, reset clues, and manage users.
+<img src="./screenshots/admin.png" alt="Admin Panel" width="400" height="800"/>
+
 
 ---
 
@@ -183,5 +202,3 @@ git push origin feature/your-feature-name
 This project is licensed under the **MIT License** – see the [LICENSE.md](./LICENSE.md) file for details.
 
 ---
-
-© 2025 Manav Rachna International Institute of Research and Studies
