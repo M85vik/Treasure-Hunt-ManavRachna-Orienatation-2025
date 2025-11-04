@@ -53,9 +53,9 @@ export default function PuzzleScreen() {
   };
 
   return (
-    // The main container is made relative to position the back button.
+   
     <div className="w-full h-full relative">
-      {/* Universal "Exit" button for all puzzles */}
+     
       <div className="absolute top-4 left-4 z-50">
         <Link
           to="/hub"
@@ -65,7 +65,7 @@ export default function PuzzleScreen() {
         </Link>
       </div>
 
-      {/* The container that renders the selected puzzle */}
+    
       <div className="w-full h-full flex items-center justify-center">
         {renderPuzzle()}
       </div>

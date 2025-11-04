@@ -8,6 +8,6 @@ const {
 
 router.post("/start", startGame);
 router.post("/stop", stopGame);
-router.get("/status", getGameStatus); // Add the new GET route
+router.get("/status", getGameStatus); 
 
 module.exports = router;

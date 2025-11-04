@@ -1,4 +1,4 @@
-const Game = require("../models/gameModel"); // 1. Import the new model
+const Game = require("../models/gameModel"); 
 // @desc    Start the treasure hunt
 // @route   POST /api/game/start
 const startGame = async (req, res) => {
@@ -14,6 +14,8 @@ const startGame = async (req, res) => {
     res.status(500).json({ message: "Server error while starting game." });
   }
 };
+
+
 
 // @desc    Stop the treasure hunt
 // @route   POST /api/game/stop
@@ -34,6 +36,8 @@ const stopGame = async (req, res) => {
   }
 };
 
+
+
 // @desc    Get the current game status
 // @route   GET /api/game/status
 const getGameStatus = async (req, res) => {
@@ -50,5 +54,5 @@ const getGameStatus = async (req, res) => {
 module.exports = {
   startGame,
   stopGame,
-  getGameStatus, // 3. Export the new function
+  getGameStatus,
 };

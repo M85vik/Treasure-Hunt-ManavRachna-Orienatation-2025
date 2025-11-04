@@ -148,8 +148,7 @@ export default function Puzzle5_MasterThief() {
 
       try {
         const response = await api.post("/teams/score", {
-          // --- THIS IS THE FIX ---
-          // The key is now `teamId`, which matches what the backend expects.
+        
           teamId: teamInfo.id,
           pointsToAdd: PUZZLE_CONFIG.pointsPerWin,
         });

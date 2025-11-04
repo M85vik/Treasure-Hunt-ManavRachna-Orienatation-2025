@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Hard-coded credentials. In a real app, these would come from a secure source.
+
 const ADMIN_USER_ID = import.meta.env.VITE_ADMIN_id;
 const ADMIN_PASSCODE = import.meta.env.VITE_ADMIN_pass;
 

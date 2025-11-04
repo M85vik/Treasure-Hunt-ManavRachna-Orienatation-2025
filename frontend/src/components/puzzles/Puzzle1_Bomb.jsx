@@ -324,9 +324,6 @@ export default function Puzzle1_Bomb() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // --- THIS IS THE FIX: PART 1 ---
-  // The handleWinSequence function is now wrapped in useCallback with a stable dependency array.
-  // This prevents it from being re-created on every render, which was causing the infinite loop.
   const handleWinSequence = useCallback(async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -341,7 +338,7 @@ export default function Puzzle1_Bomb() {
     } catch (error) {
       console.error("Failed to save score!", error);
     }
-  }, [isSubmitting, solvePuzzle, teamInfo.id, updateTeamInfo]); // The dependencies that, if changed, SHOULD recreate the function.
+  }, [isSubmitting, solvePuzzle, teamInfo.id, updateTeamInfo]); 
 
   const handleReset = useCallback(() => {
     setGameState("playing");
@@ -368,9 +365,7 @@ export default function Puzzle1_Bomb() {
     }
   }, [strikes, timeLeft, defusedModules, gameState]);
 
-  // --- THIS IS THE FIX: PART 2 ---
-  // This effect, which runs after the game ends, now correctly includes its function
-  // dependencies in its dependency array.
+
   useEffect(() => {
     if (gameState === "defused") {
       handleWinSequence();

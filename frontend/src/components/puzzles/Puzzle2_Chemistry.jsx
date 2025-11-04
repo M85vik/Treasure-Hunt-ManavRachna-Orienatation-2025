@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { TeamContext } from "../../context/TeamContent";
 import api from "../../api/axiosConfig";
-import { QUIZ_DATA } from "../../data/chemistryQuizData"; // Import data from our new file
+import { QUIZ_DATA } from "../../data/chemistryQuizData";
 import { useNavigate } from "react-router-dom";
 // --- PUZZLE CONFIGURATION ---
 const PUZZLE_CONFIG = {
