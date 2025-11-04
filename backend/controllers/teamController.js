@@ -1,5 +1,5 @@
 const Team = require("../models/teamModel");
-const Game = require("../models/gameModel"); // Import the Game model to check status
+const Game = require("../models/gameModel"); 
 
 /**
  * @desc    Create a new team
@@ -36,6 +36,8 @@ const createTeam = async (req, res) => {
   }
 };
 
+
+
 /**
  * @desc    Add points to a team's score, but only if the game is active.
  * @route   POST /api/teams/score
@@ -62,13 +64,13 @@ const addScore = async (req, res) => {
         .json({ message: "Team ID and points are required." });
     }
 
-    // --- THIS IS THE FIX ---
-    // When we update the score, we ALSO explicitly set our new timestamp field.
+  
+    // When we update the score, set our new timestamp field.
     const updatedTeam = await Team.findByIdAndUpdate(
       teamId,
       {
         $inc: { score: pointsToAdd },
-        scoreLastUpdated: new Date(), // Set the timestamp to the exact moment of the update
+        scoreLastUpdated: new Date(), 
       },
       { new: true }
     );
@@ -86,10 +88,7 @@ const addScore = async (req, res) => {
 
 const getLeaderboard = async (req, res) => {
   try {
-    // --- THIS IS THE OTHER PART OF THE FIX ---
-    // We now use our reliable `scoreLastUpdated` field for the tie-breaker.
-    // It sorts by score (desc), then by the score timestamp (asc).
-    // This correctly ranks the team that reached a score first higher in a tie.
+   
     const teams = await Team.find({}).sort({ score: -1, scoreLastUpdated: 1 });
 
     res.status(200).json(teams);

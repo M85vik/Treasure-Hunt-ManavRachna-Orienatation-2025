@@ -85,17 +85,6 @@ export default function AboutScreen() {
     },
   ];
 
-  // const coreTeam = [
-  //   {
-  //     name: "Your Name",
-  //     role: "Project Lead & Lead Developer",
-  //     description:
-  //       "Built the core logic, backend APIs, and integrated the riddles.",
-  //     imageUrl: "/images/lead.jpg",
-  //     linkedin: "https://www.linkedin.com/in/your-profile",
-  //   },
-  // ];
-
   return (
     <div className="relative bg-gradient-to-br from-[#131826] via-[#1f2937] to-[#111827] min-h-screen text-white p-6">
       {/* Floating gradient glow shapes */}
@@ -151,24 +140,7 @@ export default function AboutScreen() {
           </div>
         </section>
 
-        {/* Core team */}
-        {/* <section className="mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-amber-300 mb-6 text-center">
-            💪 Core Team
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {coreTeam.map((member) => (
-              <CreditCard
-                key={member.name}
-                name={member.name}
-                role={member.role}
-                description={member.description}
-                imageUrl={member.imageUrl}
-                linkedin={member.linkedin}
-              />
-            ))}
-          </div>
-        </section> */}
+       
 
         {/* Back button */}
         <div className="text-center mt-16">

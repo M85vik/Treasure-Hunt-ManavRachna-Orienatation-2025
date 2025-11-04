@@ -18,17 +18,16 @@ const teamSchema = new mongoose.Schema(
       type: [String],
       required: [true, "Team members are required"],
     },
-    // --- ADD THIS ---
+   
     score: {
       type: Number,
       default: 0,
     },
 
-    // --- THIS IS THE NEW FIELD ---
-    // A dedicated timestamp to track when the score was last changed.
+   
     scoreLastUpdated: {
       type: Date,
-      default: Date.now, // Set to the creation time initially
+      default: Date.now,
     },
   },
   {

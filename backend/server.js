@@ -6,12 +6,12 @@ dotenv.config();
 const teamRoutes = require("./routes/teamRoutes");
 const gameRoutes = require("./routes/gameRoutes");
 
-// Load environment variables
+
 dotenv.config();
 
 const allowedOrigins = [
-  "http://localhost:5173", // Your local frontend
-  "https://treasure-hunt-mru25-m85vik.netlify.app/api", // YOUR VERCEL URL WILL GO HERE
+  "http://localhost:5173",
+  "https://treasure-hunt-mru25-m85vik.netlify.app/api", 
 
   "https://treasure-hunt-mru25-m85vik.netlify.app",
 ];
@@ -26,13 +26,13 @@ const corsOptions = {
   },
 };
 
-// Initialize Express App
+
 const app = express();
 
-// Middleware
+
 
 app.use(cors(corsOptions));
-app.use(express.json()); // Allow the server to accept JSON in the request body
+app.use(express.json()); 
 
 // Connect to MongoDB
 mongoose
