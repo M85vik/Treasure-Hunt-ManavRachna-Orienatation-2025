@@ -41,6 +41,9 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // --- API Routes ---
+app.get("/", (req,res)=>{
+  res.send("I'm alive 😀...")
+})
 app.use("/api/teams", teamRoutes);
 app.use("/api/game", gameRoutes); // 2. Add the game routes
 // Define the port
